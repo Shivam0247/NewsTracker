@@ -1,0 +1,109 @@
+{
+  "status": "ok",
+  "totalResults": 10,
+  "articles": [
+    {
+      "source": { "id": "associated-press", "name": "Associated Press" },
+      "author": "GERALD IMRAY",
+      "title": "Oscar Pistorius and the Valentine's killing of Reeva Steenkamp. What happened that night?",
+      "description": "CAPE TOWN, South Africa (AP) — Here's what to know about the night South African Olympic runner Oscar Pistorius shot his girlfriend Reeva Steenkamp more than a decade ago in a Valentine's Day killing that jolted the world and shattered the image of a sports s…",
+      "url": "https://apnews.com/9294912233465de6f9000da2372d8663",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/0f3241fd54c047fd97b02c74f7013dae/2000.jpeg",
+      "publishedAt": "2024-01-07T11:04:02Z",
+      "content": "CAPE TOWN, South Africa (AP) — Here's what to know about the night South African Olympic runner Oscar Pistorius shot his girlfriend Reeva Steenkamp more than a decade ago in a Valentine's Day killing… [+4697 chars]"
+    },
+    {
+      "source": { "id": "usa-today", "name": "USA Today" },
+      "author": "Dace Potas",
+      "title": "Gen Z doesn't care about sports. That's part of a bigger problem.",
+      "description": "Generation Z doesn't seem to care about sports. It's part of an overall problem of us choosing isolation over communal experiences.",
+      "url": "https://www.usatoday.com/story/opinion/2024/01/07/gen-z-disinterested-sports-nfl-college-football-championship/72117123007/",
+      "urlToImage": "https://www.usatoday.com/gcdn/authoring/authoring-images/2024/01/04/USAT/72104238007-usatsi-22206303.jpg?crop=3218,1812,x0,y269&width=3200&height=1802&format=pjpg&auto=webp",
+      "publishedAt": "2024-01-07T10:10:18+00:00",
+      "content": "I'm a very lucky sports fan at the moment. My Detroit Lions are in the playoffs, the Red Wings are looking like a promising young team, and this Monday the University of Michigan Wolverines will be c… [+4596 chars]"
+    },
+    {
+      "source": { "id": "le-monde", "name": "Le Monde" },
+      "author": "Paul Battez",
+      "title": "Belarus: The opposition tries to get out of Lukashenko's trap",
+      "description": "The Belarusian leader is blocking exiled critics from renewing their documents abroad to force their return. Meanwhile, Sviatlana Tsikhanouskaya's alternative government is pushing for EU recognition of their new passports.",
+      "url": "https://www.lemonde.fr/en/international/article/2024/01/07/belarus-the-opposition-tries-to-get-out-of-lukashenko-s-trap_6409045_4.html",
+      "urlToImage": "https://img.lemde.fr/2024/01/04/20/30/4969/3313/1440/960/60/0/f2f0d5f_1704377013969-sipa-01122866-000004.jpg",
+      "publishedAt": "2024-01-07T02:33:21Z",
+      "content": "In Poland, a Belarusian exile holds a placard calling for \"freedom for Belarusian political prisoners\", during a demonstration in Warsaw, August 9, 2023. SOPA IMAGES / SIPA\r\nForced into exile since 2… [+2660 chars]"
+    },
+    {
+      "source": { "id": "news-com-au", "name": "News.com.au" },
+      "author": "Angie Raphael",
+      "title": "Tragic new detail in Olympian’s death",
+      "description": "As a professional sportsperson, wife and mother, Melissa Hoskins seemed to have it all.",
+      "url": "https://www.news.com.au/sport/cycling/melissa-hoskins-seemed-to-have-it-all-before-her-life-was-tragically-cut-short/news-story/7c58c52634be2a5712d1e01e02fe128b",
+      "urlToImage": "https://content.api.news/v3/images/bin/6f9ca86e08bc9cef78a4cbd779c43b1d",
+      "publishedAt": "2024-01-07T01:35:00Z",
+      "content": "As a professional sportsperson, wife and mother, Melissa Hoskins seemed to have it all. \r\nShe was a talented Olympic cyclist who humbly retired early to marry a fellow athlete and have two beloved ch… [+6953 chars]"
+    },
+    {
+      "source": { "id": "fox-news", "name": "Fox News" },
+      "author": "Ryan Morik",
+      "title": "Woman, 48, dies after 'hanging from an iron gate,' having leg 'impaled' at Philly sports complex bar: report",
+      "description": "A 48-year-old woman reportedly died Saturday morning after \"dangling on [a] fence for as long as five hours\" at a popular Philly sports bar.",
+      "url": "https://www.foxnews.com/sports/woman-48-dies-hanging-iron-gate-having-leg-impaled-philly-sports-complex-bar-report",
+      "urlToImage": "https://static.foxnews.com/foxnews.com/content/uploads/2024/01/philly-complex.jpg",
+      "publishedAt": "2024-01-06T23:22:39Z",
+      "content": "A 48-year-old woman was found dead at a popular sports bar at the Philadelphia sports complex, according to Fox 29 in Philly.\r\nThe woman was reportedly found \"hanging from an iron gate\" at Xfinity Li… [+1237 chars]"
+    },
+    {
+      "source": { "id": "usa-today", "name": "USA Today" },
+      "author": "Jordan Mendoza",
+      "title": "ESPN responds to Pat McAfee's comments on executive 'attempting to sabotage' his show",
+      "description": "The former NFL punter and sports media giant said on \"The Pat McAfee Show\" Friday executive Norby Williamson is trying to sabotage his daily show.",
+      "url": "https://www.usatoday.com/story/sports/media/2024/01/06/espn-responds-pat-mcafee-executive-sabotage-show/72133345007/",
+      "urlToImage": "https://www.usatoday.com/gcdn/authoring/authoring-images/2024/01/06/USAT/72133449007-usatsi-22205189.jpg?crop=8000,4501,x0,y416&width=3200&height=1801&format=pjpg&auto=webp",
+      "publishedAt": "2024-01-06T19:12:14+00:00",
+      "content": "ESPN issued a statement on Saturday saying it will handle a matter with media giant Pat McAfee internally after the former NFL punter called out on an executive on his show.\r\nThe comments came on \"Th… [+2183 chars]"
+    },
+    {
+      "source": {
+        "id": "business-insider-uk",
+        "name": "Business Insider (UK)"
+      },
+      "author": "Graham Rapier",
+      "title": "Used cars with the worst resale value after 5 years",
+      "description": "Luxury sports cars, perhaps unsurprisingly, on average lose more than half of their value after five years, according to a new report.",
+      "url": "http://uk.businessinsider.com/used-cars-worst-resale-value-lowest-prices-2024-1",
+      "urlToImage": "https://i.insider.com/65985ff41c5c7b8c9a0e7cbb?width=1200&format=jpeg",
+      "publishedAt": "2024-01-06T11:08:01Z",
+      "content": "A new Maserati Quattroporte loses more than 63% of its value on average or about $100,000 after five years on the road.\r\nThat's according to iSeeCars, which analyzed prices of more than 1 million veh… [+461 chars]"
+    },
+    {
+      "source": { "id": "talksport", "name": "TalkSport" },
+      "author": "Josh Fordham",
+      "title": "Manchester United release statement after journalists ‘banned’ from press conference...",
+      "description": "Manchester United explained why four journalists were banned from an Erik ten Hag press conference on Tuesday. Sky Sports chief reporter Kaveh Solhekhol, the Manchester Evening News’ Samuel L…",
+      "url": "https://talksport.com/football/1666142/man-utd-journalists-banned-press-conference-erik-ten-hag/",
+      "urlToImage": "https://talksport.com/wp-content/uploads/sites/5/2023/10/228f511f-c84a-48e8-b067-5c7277d90984.jpg?strip=all&quality=100&w=1920&h=1080&crop=1",
+      "publishedAt": "2023-12-05T12:12:06Z",
+      "content": "Manchester United explained why four journalists were banned from an Erik ten Hag press conference on Tuesday.\r\nSky Sports chief reporter Kaveh Solhekhol, the Manchester Evening News' Samuel Luckhurs… [+820 chars]"
+    },
+    {
+      "source": { "id": "bleacher-report", "name": "Bleacher Report" },
+      "author": null,
+      "title": "New Micah Parsons Show ",
+      "description": "Fan easier, fan faster and fan better with Bleacher Report. Keep up with the latest storylines, expert analysis, highlights and scores for all your favorite sports.",
+      "url": "https://bleacherreport.com/videos/490566-the-edge-w-micah-parsons-ep-11-vod",
+      "urlToImage": null,
+      "publishedAt": "2023-11-27T20:37:24.6381564Z",
+      "content": null
+    },
+    {
+      "source": { "id": "bleacher-report", "name": "Bleacher Report" },
+      "author": null,
+      "title": " Mikal Bridges Interview ",
+      "description": "Fan easier, fan faster and fan better with Bleacher Report. Keep up with the latest storylines, expert analysis, highlights and scores for all your favorite sports.",
+      "url": "https://bleacherreport.com/videos/491103-taylor-rooks-x-mikal-bridges-vod",
+      "urlToImage": null,
+      "publishedAt": "2023-11-27T20:37:24.3882176Z",
+      "content": "Nets star sits down with Taylor Rooks for exclusive convo."
+    }
+  ]
+}
