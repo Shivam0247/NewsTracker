@@ -11,7 +11,7 @@ import LoadingBar from 'react-top-loading-bar';
 import ArticleState from "./ArticleContext/ArticleState";
 
 const App = ()=>{
-  const pageSize= 10;
+  const pageSize= 30;
   const apikey="df5a4b80cf5b4d1395a5093a37c8e5ca";
   
   const[progress,setProgress]= useState(0);

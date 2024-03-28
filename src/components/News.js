@@ -7,81 +7,92 @@ import articleContext from "../ArticleContext/ArticleContext";
 
 const News = (props)=>{
   const context = useContext(articleContext);
-  const { articles_d,getArticles,addArticles} = context;
+  const { articles_d, getArticles, addArticles } = context;
 
-  const[articles,setArticles]= useState([]);
-  const[loading,setLoading]= useState(false);
-  const[page,setPage]= useState(1);
-  const[totalResults,setTotalResults]= useState(0);
-  
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalResults, setTotalResults] = useState(0);
 
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
-    
-
-  const updateNews= async()=>{
-    props.setProgress(10);
-    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page}&pageSize=${props.pagesize}`;
-    setLoading(true);
-    let data = await fetch(url);
-    props.setProgress(40);
-    let parseData = await data.json();
-    props.setProgress(70);
-    setArticles(parseData.articles);
-    setLoading(false);
-    setTotalResults(parseData.totalResults);
-    props.setProgress(100);
-
-    parseData.articles.forEach(async (article) => {
-      const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
-      await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
-    });
-    
-    console.log(parseData);
-  }
-
   useEffect(() => {
-    updateNews();
-    document.title = `${capitalizeFirstLetter(
-      props.category
-    )} - NewsMonkey`;
-
-    // eslint-disable-next-line
+    const fetchData = async () => {
+      await getArticles();
+      await updateNews();
+      document.title = `${capitalizeFirstLetter(
+        props.category
+      )} - NewsMonkey`;
+    };
+  
+    fetchData();
+  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
 
-
-
-  // const handlePrevious =async()=>{
-  //   await setPage(page-1);
-  //   updateNews();
-  // }
-
-  // const handleNext = async()=>{
-  //   // if((page + 1) > Math.ceil(totalResults/props.pagesize)){
-
-  //   // }
-  //   // else{
-  //     await setPage(page+1);
-  //     updateNews();
-  // // }
-  // }
+  const updateNews = async () => {
+    try {
+      props.setProgress(10);
+      const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page}&pageSize=${props.pagesize}`;
+      setLoading(true);
+      let data = await fetch(url);
+      props.setProgress(40);
+      let parseData = await data.json();
+      props.setProgress(70);
+      setArticles(parseData.articles);
+      setLoading(false);
+      setTotalResults(parseData.totalResults);
+      props.setProgress(100);
+      console.log(parseData);
+  
+      // Add articles to the database
+      parseData.articles.forEach(async (article) => {
+        const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
+        await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
+      });
+    } catch (error) {
+      console.error('Error updating news:', error);
+    }
+  };
+  
 
   const fetchMoreData = async () => {
-    setPage(page+1);
-    const url = `https://newsapi.org/v2/top-headlines?country=${
-      props.country
-    }&category=${props.category}&apiKey=${props.apikey}&page=${
-    page + 1
-    }&pageSize=${props.pagesize}`;
-    setLoading(true);
-    let data = await fetch(url);
-    let parseData = await data.json();
-    setArticles(articles.concat(parseData.articles));
-    setLoading(false);
-    setTotalResults(parseData.totalResults);
+    try {
+      setPage(page + 1);
+      const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page + 1}&pageSize=${props.pagesize}`;
+      setLoading(true);
+      let data = await fetch(url);
+      let parseData = await data.json();
+  
+      console.log('parseData:', parseData);
+      console.log('parseData.articles:', parseData.articles);
+  
+      // Check if parseData.articles is an array before concatenating
+      if (Array.isArray(parseData.articles)) {
+        setArticles([...articles, ...parseData.articles]);
+        setLoading(false);
+        setTotalResults(parseData.totalResults);
+  
+        // Add each new article to the database
+        parseData.articles.forEach(async (article) => {
+          const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
+          await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
+        });
+      } else {
+        console.error('Error: parseData.articles is not an array');
+        setLoading(false); // Stop loading
+      }
+    } catch (error) {
+      console.error('Error updating news:', error);
+      setLoading(false); // Stop loading
+    }
   };
+  
+  
+  
 
     return (
       <>
