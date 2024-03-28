@@ -8,7 +8,7 @@ import {
   Route,
 } from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar';
-
+import ArticleState from "./ArticleContext/ArticleState";
 
 const App = ()=>{
   const pageSize= 10;
@@ -17,6 +17,7 @@ const App = ()=>{
   const[progress,setProgress]= useState(0);
 
     return (
+      <ArticleState>
       <BrowserRouter>
       <div>
         <Navbar />
@@ -63,6 +64,7 @@ const App = ()=>{
           </Routes>
       </div>
       </BrowserRouter>
+      </ArticleState>
     );
 }
 

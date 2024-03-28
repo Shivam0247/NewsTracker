@@ -1,11 +1,14 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect,useState,useContext} from "react";
 import NewsItem from "./NewsItem";
 import Loading from "./Loading";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
+import articleContext from "../ArticleContext/ArticleContext";
 
 const News = (props)=>{
-  
+  const context = useContext(articleContext);
+  const { articles_d,getArticles,addArticles} = context;
+
   const[articles,setArticles]= useState([]);
   const[loading,setLoading]= useState(false);
   const[page,setPage]= useState(1);
@@ -30,6 +33,12 @@ const News = (props)=>{
     setLoading(false);
     setTotalResults(parseData.totalResults);
     props.setProgress(100);
+
+    parseData.articles.forEach(async (article) => {
+      const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
+      await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
+    });
+    
     console.log(parseData);
   }
 
@@ -38,8 +47,10 @@ const News = (props)=>{
     document.title = `${capitalizeFirstLetter(
       props.category
     )} - NewsMonkey`;
+
     // eslint-disable-next-line
-  },[]);
+  }, []);
+
 
 
   // const handlePrevious =async()=>{
