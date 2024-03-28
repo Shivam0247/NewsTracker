@@ -1,9 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('NewsTracker', 'root', '12345678', {
-  host: 'localhost',
-  dialect: 'mysql',
-  logging: false
-});
+const sequelize = require('../sequelize'); 
 
 const User = sequelize.define('User', {
   user_id: {
@@ -27,11 +23,11 @@ const User = sequelize.define('User', {
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
-    field: 'created_at' // Map to an existing column
+    field: 'created_at' 
   }
 }, {
   tableName: 'Users',
-  timestamps: false // Disable default timestamps
+  timestamps: false 
 });
 
 (async () => {
