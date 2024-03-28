@@ -4,7 +4,7 @@ const mysql = require("mysql");
         host: "localhost", 
         user: "root",
         password: "12345678",
-        database: "student"
+        database: "NewsTracker"
     });
 
 
