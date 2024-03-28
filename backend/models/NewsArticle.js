@@ -45,7 +45,12 @@ const NewsArticle = sequelize.define('NewsArticle', {
     }
 }, {
     tableName: 'NewsArticles',
-    timestamps: false // Disable timestamps
+    timestamps: false
 });
 
+(async () => {
+    await sequelize.sync({ force: false });
+  })();
+
+  
 module.exports = NewsArticle;
