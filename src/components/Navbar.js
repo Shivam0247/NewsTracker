@@ -68,14 +68,14 @@ const Navbar = () => {
             </ul>
 
             <Link to="/login">
-              <button class="btn btn-outline-secondary" type="submit">
+              <button className="btn btn-outline-secondary" type="submit">
                 Login
               </button>
             </Link>
 
             <Link to="/signup">
               <button
-                class="btn btn-outline-secondary"
+                className="btn btn-outline-secondary"
                 type="submit"
                 style={{ marginLeft: "10px" }}
               >

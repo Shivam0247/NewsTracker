@@ -13,6 +13,7 @@ import CategoryState from "./CategoryContext/CategoryState";
 import ArticleCategoryState from "./ArticleCategory/ArticleCategoryState";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import UserState from "./UserContext/UserState"
 const App = () => {
   const pageSize = 30;
   const apikey = "df5a4b80cf5b4d1395a5093a37c8e5ca";
@@ -20,6 +21,7 @@ const App = () => {
   const [progress, setProgress] = useState(0);
 
   return (
+    <UserState>
     <ArticleState>
       <CategoryState>
         <ArticleCategoryState>
@@ -159,6 +161,7 @@ const App = () => {
         </ArticleCategoryState>
       </CategoryState>
     </ArticleState>
+    </UserState>
   );
 };
 
