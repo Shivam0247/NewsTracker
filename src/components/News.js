@@ -14,7 +14,7 @@ const News = (props)=>{
   const {articleCategories,getArticleCategories,addArticleCategory} = articleCategoryContext;
 
   const categoryContext = useContext(CategoryContext);
-  const {categoryies,getCategories} = categoryContext;
+  const {categories,getCategories} = categoryContext;
 
 
   const [articles, setArticles] = useState([]);
@@ -28,6 +28,7 @@ const News = (props)=>{
 
   useEffect(() => {
     const fetchData = async () => {
+      await getCategories();
       await getArticles();
       await updateNews();
       document.title = `${capitalizeFirstLetter(
@@ -55,22 +56,22 @@ const News = (props)=>{
       setTotalResults(parseData.totalResults);
       props.setProgress(100);
       console.log(parseData);
-  
+      console.log(props.category);
       // Fetch category ID from the database
-      const category = categoryies.find(category => category.name === props.category);
+      console.log(categories);
+      const category = await categories.find(category => category.name === props.category);
       if (!category) {
         console.error(`Category ${props.category} not found in the database.`);
         return;
       }
       const categoryId = category.category_id;
-  
       // Add articles to the database
       parseData.articles.forEach(async (article) => {
         const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
         const addedArticle = await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
-        if (addedArticle) {
+        if (addedArticle && !addedArticle.error){
           // Add article category
-          await addArticleCategory(addedArticle.id, categoryId);
+         const addArticleCategorys =  await addArticleCategory(addedArticle.article_id, categoryId);
         }
       });
     } catch (error) {
@@ -97,10 +98,21 @@ const News = (props)=>{
         setTotalResults(parseData.totalResults);
   
         // Add each new article to the database
-        parseData.articles.forEach(async (article) => {
-          const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
-          await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
-        });
+        const category = await categories.find(category => category.name === props.category);
+      if (!category) {
+        console.error(`Category ${props.category} not found in the database.`);
+        return;
+      }
+      const categoryId = category.category_id;
+      // Add articles to the database
+      parseData.articles.forEach(async (article) => {
+        const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
+        const addedArticle = await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
+        if (addedArticle && !addedArticle.error){
+          // Add article category
+         const addArticleCategorys =  await addArticleCategory(addedArticle.article_id, categoryId);
+        }
+      });
       } else {
         console.error('Error: parseData.articles is not an array');
         setLoading(false); // Stop loading

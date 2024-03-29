@@ -6,10 +6,11 @@ const CategoryState = (props) => {
   const categoryInitial = [];
   const [categories, setCategories] = useState(categoryInitial);
 
+  
   // Get all Articles
   const getCategories = async () => {
     try {
-      const response = await fetch(`${host}/api/Category/addcategory`, {
+      const response = await fetch(`${host}/api/category/getcategory`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

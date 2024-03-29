@@ -23,19 +23,25 @@ const CategoryState = (props) => {
   }
    
   const addArticleCategory = async (article_id, category_id) => {
-    // TODO: API Call
-    // API Call 
-    const response = await fetch(`${host}/api/articlecategory/addarticlecategories`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({article_id, category_id})
-    });
-
-    const articleCategories = await response.json();
-    setArticleCategories(articleCategories.concat(articleCategories))
+    try {
+      // API Call to add the new article category
+      const response = await fetch(`${host}/api/articlecategory/addarticlecategories`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ article_id, category_id })
+      });
+  
+      const newArticleCategory = await response.json();
+  
+      // Update the articleCategories state by concatenating the new article category
+      setArticleCategories([...articleCategories, newArticleCategory]);
+    } catch (error) {
+      console.error('Error adding article category:', error);
+    }
   }
+  
 
   return (
     <ArticleCategoryContext.Provider value={{articleCategories,getArticleCategories,addArticleCategory}}>

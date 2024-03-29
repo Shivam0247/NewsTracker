@@ -23,40 +23,35 @@ const ArticleState = (props) => {
   }
 
   // Add an Article
-  // Add an Article
-const addArticles = async (title, description, content, author, published_at, source_id, source_name, url, image_url) => {
+  const addArticles = async (title, description, content, author, publishedAt, sourceId, sourceName, url, urlToImage) => {
     try {
-      // Fetch the latest articles
-      await getArticles();
-  
-      // Check if an article with the same title already exists
-      const existingArticle = articles_d.find(article => article.title === title);
-      if (existingArticle) {
-        console.log("Article with the same title already exists. You can't enter.");
-        return; // Exit function if article with the same title exists
-      }
-  
-      // If article with the same title does not exist, proceed to add the new article
+      // Make API call to add article
       const response = await fetch(`${host}/api/newsarticle/addarticle`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, description, content, author, published_at, source_id, source_name, url, image_url })
+        body: JSON.stringify({
+          title,
+          description,
+          content,
+          author,
+          publishedAt,
+          sourceId,
+          sourceName,
+          url,
+          urlToImage
+        }),
       });
-  
-      if (response.ok) {
-        // Retrieve the newly added article from the response
-        const newArticle = await response.json();
-        // Update the articles state with the new article
-        setArticles_d([...articles_d, newArticle]);
-      } else {
-        console.error('Failed to add article');
-      }
+      const data = await response.json();
+      console.log("Added Article:", data); // Log added article data
+      return data; // Return added article
     } catch (error) {
       console.error('Error adding article:', error);
+      return null; // Return null in case of error
     }
-  }
+  };
+  
     
   return (
     <ArticleContext.Provider value={{ articles_d, getArticles, addArticles }}>
