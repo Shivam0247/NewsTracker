@@ -23,7 +23,7 @@ const ArticleState = (props) => {
   }
 
   // Add an Article
-  const addArticles = async (title, description, content, author, publishedAt, sourceId, sourceName, url, urlToImage) => {
+  const addArticles = async (title, description, content, author, published_at, source_id, source_name, url, image_url) => {
     try {
       // Make API call to add article
       const response = await fetch(`${host}/api/newsarticle/addarticle`, {
@@ -36,11 +36,11 @@ const ArticleState = (props) => {
           description,
           content,
           author,
-          publishedAt,
-          sourceId,
-          sourceName,
+          published_at,
+          source_id,
+          source_name,
           url,
-          urlToImage
+          image_url
         }),
       });
       const data = await response.json();

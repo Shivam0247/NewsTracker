@@ -68,7 +68,8 @@ const News = (props)=>{
       // Add articles to the database
       parseData.articles.forEach(async (article) => {
         const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
-        const addedArticle = await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
+        console.log("urlToImage",urlToImage);
+        const addedArticle = await addArticles(title, description, content, author, publishedAt, source.id, source.name, url,urlToImage);
         if (addedArticle && !addedArticle.error){
           // Add article category
          const addArticleCategorys =  await addArticleCategory(addedArticle.article_id, categoryId);
@@ -107,6 +108,7 @@ const News = (props)=>{
       // Add articles to the database
       parseData.articles.forEach(async (article) => {
         const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
+        console.log("urlToImage",urlToImage);
         const addedArticle = await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
         if (addedArticle && !addedArticle.error){
           // Add article category
