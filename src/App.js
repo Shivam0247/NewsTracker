@@ -11,6 +11,8 @@ import LoadingBar from "react-top-loading-bar";
 import ArticleState from "./ArticleContext/ArticleState";
 import CategoryState from "./CategoryContext/CategoryState";
 import ArticleCategoryState from "./ArticleCategory/ArticleCategoryState";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
 const App = () => {
   const pageSize = 30;
   const apikey = "df5a4b80cf5b4d1395a5093a37c8e5ca";
@@ -147,6 +149,10 @@ const App = () => {
                     />
                   }
                 ></Route>
+
+                <Route exact path="/login" element={<Login />}></Route>
+
+                <Route exact path="/signup" element={<Signup />}></Route>
               </Routes>
             </div>
           </BrowserRouter>
