@@ -4,10 +4,18 @@ import Loading from "./Loading";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import articleContext from "../ArticleContext/ArticleContext";
-
+import ArticleCategoryContext from "../ArticleCategory/ArticleCategoryContext";
+import CategoryContext from "../CategoryContext/CategoryContext";
 const News = (props)=>{
   const context = useContext(articleContext);
   const { articles_d, getArticles, addArticles } = context;
+
+  const articleCategoryContext = useContext(ArticleCategoryContext);
+  const {articleCategories,getArticleCategories,addArticleCategory} = articleCategoryContext;
+
+  const categoryContext = useContext(CategoryContext);
+  const {categoryies,getCategories} = categoryContext;
+
 
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -48,10 +56,22 @@ const News = (props)=>{
       props.setProgress(100);
       console.log(parseData);
   
+      // Fetch category ID from the database
+      const category = categoryies.find(category => category.name === props.category);
+      if (!category) {
+        console.error(`Category ${props.category} not found in the database.`);
+        return;
+      }
+      const categoryId = category.category_id;
+  
       // Add articles to the database
       parseData.articles.forEach(async (article) => {
         const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
-        await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
+        const addedArticle = await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
+        if (addedArticle) {
+          // Add article category
+          await addArticleCategory(addedArticle.id, categoryId);
+        }
       });
     } catch (error) {
       console.error('Error updating news:', error);
@@ -97,7 +117,7 @@ const News = (props)=>{
     return (
       <>
         <h1 className="text-center" style={{ margin: "30px 0",marginTop: "90px",color: "white"}}>
-          NewsMonkey - Top {capitalizeFirstLetter(props.category)}{" "}
+          NewsTracker - Top {capitalizeFirstLetter(props.category)}{" "}
           Headlines
         </h1>
         {/* {loading && <Loading/>} */}
