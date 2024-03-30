@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+var jwt = require("jsonwebtoken");
 const JWT_SECRET = 'shivamisagoodb$oy';
 
 const fetchuser = (req, res, next) => {
@@ -9,7 +9,8 @@ const fetchuser = (req, res, next) => {
     }
     try {
         // Verify the token
-        const decoded = jwt.verify(token, JWT_SECRET);
+        console.log(token);
+        const decoded = jwt.verify(token,JWT_SECRET);
         console.log('Decoded Token:', decoded); // Log the decoded token for debugging
         // Add user information to the request object
         req.user = decoded.user;
@@ -20,6 +21,5 @@ const fetchuser = (req, res, next) => {
         return res.status(401).send({ error: "Unauthorized: Invalid token" });
     }
 }
-
 
 module.exports = fetchuser;

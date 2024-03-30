@@ -11,14 +11,24 @@ const JWT_SECRET = 'shivamisagoodb$oy';
 // ROUTE 1: Get All the users info: POST "/api/auth/getuser"
 router.post('/getuser', fetchuser, async (req, res) => {
   try {
-    const userId = req.user.id;
-    const user = await User.findOne({user_id:userId}).select("-password")
-    res.send(user)
+    console.log('Decoded Token:', req.user); // Log the decoded token
+    const userId = req.user.user_id; // Assign user_id to userId
+    console.log('User ID:', userId); // Log the user ID for debugging
+    const user = await User.findOne({
+      where: { user_id: userId },
+      attributes: { exclude: ['password'] } // Exclude password from the result
+    });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
-})
+});
+
+
 
 // ROUTE 2: Add a user using: POST "/api/auth/adduser"
 router.post("/adduser", [
@@ -45,10 +55,10 @@ router.post("/adduser", [
     const newUser = await User.create({ username, email, password: hashedPassword });
     const data = {
       newUser: {
-        id: newUser.id
+        user_id: newUser.user_id
       }
     }
-    const authtoken = jwt.sign(data, JWT_SECRET);
+    const authtoken = jwt.sign(data,JWT_SECRET);
     res.json({ authtoken })
   } catch (error) {
     console.error(error.message);
@@ -63,40 +73,43 @@ router.post('/login', [
   body('email', 'Enter a valid email').isEmail(),
   body('password', 'Password cannot be blank').exists(),
 ], async (req, res) => {
-  let success = false;
-  // If there are errors, return Bad request and the errors
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  const { email, password } = req.body;
   try {
-    let user = await User.findOne({ where: { email: email } }); // Explicitly define email in where object
-    if (!user) {
-      success = false
-      return res.status(400).json({ error: "Please try to login with correct credentials" });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.status(400).json({ error: "Invalid email or password" });
+    }
+
+    // Log user data for debugging
+    console.log("Retrieved User:", user);
+
+    // Check if password matches
     const passwordCompare = await bcrypt.compare(password, user.password);
     if (!passwordCompare) {
-      success = false
-      return res.status(400).json({ success, error: "Please try to login with correct credentials" });
+      return res.status(400).json({ error: "Invalid email or password" });
     }
 
+    // Generate token
     const data = {
       user: {
-        id: user.id
+        user_id: user.user_id
       }
-    }
-    const authtoken = jwt.sign(data, JWT_SECRET);
-    success = true;
-    res.json({ success, authtoken })
+    };
+    console.log(user.user_id);
+    const authtoken = jwt.sign(data,JWT_SECRET);
 
+    res.json({ success: true, authtoken });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
 });
+
 
 module.exports = router;
