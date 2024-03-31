@@ -101,7 +101,6 @@ router.post('/login', [
         user_id: user.user_id
       }
     };
-    console.log(user.user_id);
     const authtoken = jwt.sign(data,JWT_SECRET);
 
     res.json({ success: true, authtoken });
