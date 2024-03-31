@@ -24,14 +24,14 @@ function FavNews(props) {
             <div className="col-md-4 my-3" key={index}>
               <NewsItem
                 title={element.title ? element.title : ""}
-                date={element.publishedAt}
+                date={element.published_at}
                 author={element.author}
                 source={element.source ? element.source.name : ""} 
                 Badge={props.Badge}
                 description={element.description ? element.description : ""}
                 imageUrl={
-                  element.urlToImage
-                    ? element.urlToImage
+                  element.image_url
+                    ? element.image_url
                     : "https://www.hindustantimes.com/ht-img/img/2024/01/07/1600x900/The-IMD-has-issued-rain-and-thunderstorm-alerts-fo_1704628367847.jpg"
                 }
                 url={element.url}

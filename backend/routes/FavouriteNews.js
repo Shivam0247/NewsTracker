@@ -21,15 +21,15 @@ router.post("/addfavnews",fetchuser, async (req, res) => {
       const { title, description,content,author,published_at,source_id,source_name,url,image_url } = req.body;
 
       const news = new FavoriteNews({
-        title,
-        description,
-        content,
-        author,
-        published_at,
-        source_id,
-        source_name,
-        url,
-        image_url,
+        title:title,
+        description:description,
+        content:content,
+        author:author,
+        published_at:published_at,
+        source_id:source_id,
+        source_name:source_name,
+        url:url,
+        image_url:image_url,
         user_id: req.user.user_id,
       });
       const savedNews = await news.save();

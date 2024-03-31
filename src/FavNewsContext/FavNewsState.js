@@ -31,17 +31,18 @@ const FavNewsState = (props) => {
           "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOjE0fSwiaWF0IjoxNzExODgwNzYzfQ.1PVg2pR6X9ga7RbztQ-jCPqwU0xprcK8BbnCMv0ApWo"
         },
         body: JSON.stringify({
-            title: title,
-            description: description,
-            content: content,
-            author: author,
+            title: title.title,
+            description: title.description,
+            content: title.content,
+            author: title.author,
             published_at: published_at,
-            source_id: source_id,
-            source_name: source_name,
-            url: url,
-            image_url: image_url 
+            source_id: title.source_id,
+            source_name: title.source_name,
+            url:title.url,
+            image_url: title.image_url 
         }),        
       });
+      console.log("sajjsnm",title);
       const data = await response.json();
       return data;
     } catch (error) {

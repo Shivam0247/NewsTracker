@@ -12,7 +12,7 @@ const NewsItem = ({
   sourceName,
   imageUrl,
   url,
-  Badge
+  Badge,
 }) => {
   const context = useContext(FavNewsContext);
   const { addFavNews } = context;
@@ -22,11 +22,16 @@ const NewsItem = ({
 
   const handleStarClick = async () => {
     const checkLogin = localStorage.getItem("token");
+    console.log("title",title);
     if (checkLogin) {
       setIsStarClicked(!isStarClicked);
+      // Use the title prop directly
+      const titleString =
+        title && typeof title === "string" ? title : "";
+  
       // Add the news item to favorites
       const favN = await addFavNews({
-        title: typeof title === 'string' ? title : (typeof title === 'object' ? title.title : ''), // Ensure title is a string
+        title: title,
         description,
         content,
         author,
@@ -34,7 +39,7 @@ const NewsItem = ({
         source_id: sourceId,
         source_name: sourceName,
         url,
-        image_url: imageUrl
+        image_url: imageUrl,
       });
   
       console.log(favN);
