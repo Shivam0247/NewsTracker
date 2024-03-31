@@ -1,15 +1,13 @@
 import UserContext from "./UserContext";
 import { useState,useEffect} from "react";
-
 const UserState = (props) => {
   const host = "http://localhost:8800"
   const usersInitial = [];
   const [users, setUsers] = useState(usersInitial);
-
   // Get all Articles
   const getUsers = async () => {
     try {
-      const response = await fetch(`${host}/api/auth/user`, {
+      const response = await fetch(`${host}/api/auth/getuser`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -36,6 +34,10 @@ const UserState = (props) => {
         }),
       });
       const data = await response.json();
+      if (data.success){
+        // Save the auth token and redirect
+        localStorage.setItem('token', data.authtoken); 
+    }
       return data; 
     } catch (error) {
       console.error('Error adding user:', error);

@@ -21,11 +21,11 @@ const App = () => {
   const [progress, setProgress] = useState(0);
 
   return (
+          <BrowserRouter>
     <UserState>
     <ArticleState>
       <CategoryState>
         <ArticleCategoryState>
-          <BrowserRouter>
             <div>
               <Navbar />
               <LoadingBar color="#f11946" progress={progress} height={3} />
@@ -157,11 +157,11 @@ const App = () => {
                 <Route exact path="/signup" element={<Signup />}></Route>
               </Routes>
             </div>
-          </BrowserRouter>
         </ArticleCategoryState>
       </CategoryState>
     </ArticleState>
     </UserState>
+          </BrowserRouter>
   );
 };
 

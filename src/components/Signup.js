@@ -1,5 +1,5 @@
 import React, {useState,useContext} from 'react'
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import "../css/Signup.css"
 import UserContext from '../UserContext/UserContext';
 const Signup = (props) => {
@@ -7,12 +7,17 @@ const Signup = (props) => {
     // let history = useHistory();
     const context = useContext(UserContext);
     const {users,getUsers,addUser} = context;
-    
+    const navigate = useNavigate(); // Use useNavigate hook for navigation
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-      await addUser(credentials.username,credentials.email,credentials.password);
-      setCredentials({username:"",email: "", password: ""});
-    }
+        const user = await addUser(credentials.username, credentials.email, credentials.password);
+        setCredentials({username: "", email: "", password: ""});
+        console.log(user);
+        if (!user.errors || user.errors.length === 0) {
+            navigate("/login"); // Navigate to the login page if there are no errors
+          }
+      }
 
     const onChange = (e)=>{
         setCredentials({...credentials, [e.target.name]: e.target.value})
