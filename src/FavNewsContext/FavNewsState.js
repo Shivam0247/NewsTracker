@@ -11,7 +11,7 @@ const FavNewsState = (props) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOjE0fSwiaWF0IjoxNzExODgwNzYzfQ.1PVg2pR6X9ga7RbztQ-jCPqwU0xprcK8BbnCMv0ApWo"
+          "auth-token": localStorage.getItem("token")
         },
       });
       const json = await response.json();
@@ -28,7 +28,7 @@ const FavNewsState = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOjE0fSwiaWF0IjoxNzExODgwNzYzfQ.1PVg2pR6X9ga7RbztQ-jCPqwU0xprcK8BbnCMv0ApWo"
+          "auth-token": localStorage.getItem("token")
         },
         body: JSON.stringify({
             title: title.title,

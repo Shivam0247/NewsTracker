@@ -24,10 +24,11 @@ function FavNews(props) {
             <div className="col-md-4 my-3" key={index}>
               <NewsItem
                 title={element.title ? element.title : ""}
-                date={element.published_at}
+                published_at={element.published_at}
                 author={element.author}
-                source={element.source ? element.source.name : ""} 
-                Badge={props.Badge}
+                sourceName={element.source_name ? element.source_name : "Anonymous"} 
+                sourceId={element.source_id ? element.source_id : ""}
+                Badge="danger"
                 description={element.description ? element.description : ""}
                 imageUrl={
                   element.image_url

@@ -220,7 +220,7 @@ const News = (props) => {
                     url={element.url}
                     content={element.content ? element.content : ""}
                     published_at={
-                      element.published_at ? element.published_at : ""
+                      element.publishedAt ? element.publishedAt : ""
                     }
                   />
                 </div>
