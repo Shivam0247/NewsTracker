@@ -1,4 +1,4 @@
-import React,{useEffect,useState,useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import NewsItem from "./NewsItem";
 import Loading from "./Loading";
 import PropTypes from "prop-types";
@@ -6,16 +6,16 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import articleContext from "../ArticleContext/ArticleContext";
 import ArticleCategoryContext from "../ArticleCategory/ArticleCategoryContext";
 import CategoryContext from "../CategoryContext/CategoryContext";
-const News = (props)=>{
+const News = (props) => {
   const context = useContext(articleContext);
   const { articles_d, getArticles, addArticles } = context;
 
   const articleCategoryContext = useContext(ArticleCategoryContext);
-  const {articleCategories,getArticleCategories,addArticleCategory} = articleCategoryContext;
+  const { articleCategories, getArticleCategories, addArticleCategory } =
+    articleCategoryContext;
 
   const categoryContext = useContext(CategoryContext);
-  const {categories,getCategories} = categoryContext;
-
+  const { categories, getCategories } = categoryContext;
 
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -31,16 +31,13 @@ const News = (props)=>{
       await getCategories();
       await getArticles();
       await updateNews();
-      document.title = `${capitalizeFirstLetter(
-        props.category
-      )} - NewsMonkey`;
+      document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`;
     };
-  
+
     fetchData();
-  
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
 
   const updateNews = async () => {
     try {
@@ -59,7 +56,9 @@ const News = (props)=>{
       console.log(props.category);
       // Fetch category ID from the database
       console.log(categories);
-      const category = await categories.find(category => category.name === props.category);
+      const category = await categories.find(
+        (category) => category.name === props.category
+      );
       if (!category) {
         console.error(`Category ${props.category} not found in the database.`);
         return;
@@ -67,117 +66,177 @@ const News = (props)=>{
       const categoryId = category.category_id;
       // Add articles to the database
       parseData.articles.forEach(async (article) => {
-        const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
-        console.log("urlToImage",urlToImage);
-        const addedArticle = await addArticles(title, description, content, author, publishedAt, source.id, source.name, url,urlToImage);
-        if (addedArticle && !addedArticle.error){
+        const {
+          title,
+          description,
+          content,
+          author,
+          publishedAt,
+          source,
+          url,
+          urlToImage,
+        } = article;
+        console.log("urlToImage", urlToImage);
+        const addedArticle = await addArticles(
+          title,
+          description,
+          content,
+          author,
+          publishedAt,
+          source.id,
+          source.name,
+          url,
+          urlToImage
+        );
+        if (addedArticle && !addedArticle.error) {
           // Add article category
-         const addArticleCategorys =  await addArticleCategory(addedArticle.article_id, categoryId);
+          const addArticleCategorys = await addArticleCategory(
+            addedArticle.article_id,
+            categoryId
+          );
         }
       });
     } catch (error) {
-      console.error('Error updating news:', error);
+      console.error("Error updating news:", error);
     }
   };
-  
 
   const fetchMoreData = async () => {
     try {
       setPage(page + 1);
-      const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page + 1}&pageSize=${props.pagesize}`;
+      const url = `https://newsapi.org/v2/top-headlines?country=${
+        props.country
+      }&category=${props.category}&apiKey=${props.apikey}&page=${
+        page + 1
+      }&pageSize=${props.pagesize}`;
       setLoading(true);
       let data = await fetch(url);
       let parseData = await data.json();
-  
-      console.log('parseData:', parseData);
-      console.log('parseData.articles:', parseData.articles);
-  
+
+      console.log("parseData:", parseData);
+      console.log("parseData.articles:", parseData.articles);
+
       // Check if parseData.articles is an array before concatenating
       if (Array.isArray(parseData.articles)) {
         setArticles([...articles, ...parseData.articles]);
         setLoading(false);
         setTotalResults(parseData.totalResults);
-  
+
         // Add each new article to the database
-        const category = await categories.find(category => category.name === props.category);
-      if (!category) {
-        console.error(`Category ${props.category} not found in the database.`);
-        return;
-      }
-      const categoryId = category.category_id;
-      // Add articles to the database
-      parseData.articles.forEach(async (article) => {
-        const { title, description, content, author, publishedAt, source, url, urlToImage } = article;
-        console.log("urlToImage",urlToImage);
-        const addedArticle = await addArticles(title, description, content, author, publishedAt, source.id, source.name, url, urlToImage);
-        if (addedArticle && !addedArticle.error){
-          // Add article category
-         const addArticleCategorys =  await addArticleCategory(addedArticle.article_id, categoryId);
+        const category = await categories.find(
+          (category) => category.name === props.category
+        );
+        if (!category) {
+          console.error(
+            `Category ${props.category} not found in the database.`
+          );
+          return;
         }
-      });
+        const categoryId = category.category_id;
+        // Add articles to the database
+        parseData.articles.forEach(async (article) => {
+          const {
+            title,
+            description,
+            content,
+            author,
+            publishedAt,
+            source,
+            url,
+            urlToImage,
+          } = article;
+          console.log("urlToImage", urlToImage);
+          const addedArticle = await addArticles(
+            title,
+            description,
+            content,
+            author,
+            publishedAt,
+            source.id,
+            source.name,
+            url,
+            urlToImage
+          );
+          if (addedArticle && !addedArticle.error) {
+            // Add article category
+            const addArticleCategorys = await addArticleCategory(
+              addedArticle.article_id,
+              categoryId
+            );
+          }
+        });
       } else {
-        console.error('Error: parseData.articles is not an array');
+        console.error("Error: parseData.articles is not an array");
         setLoading(false); // Stop loading
       }
     } catch (error) {
-      console.error('Error updating news:', error);
+      console.error("Error updating news:", error);
       setLoading(false); // Stop loading
     }
   };
-  
-  
-  
 
-    return (
-      <>
-        <h1 className="text-center" style={{ margin: "30px 0",marginTop: "90px",color: "white"}}>
-          NewsTracker - Top {capitalizeFirstLetter(props.category)}{" "}
-          Headlines
-        </h1>
-        {/* {loading && <Loading/>} */}
+  return (
+    <>
+      <h1
+        className="text-center"
+        style={{ margin: "30px 0", marginTop: "90px", color: "white" }}
+      >
+        NewsTracker - Top {capitalizeFirstLetter(props.category)} Headlines
+      </h1>
+      {/* {loading && <Loading/>} */}
 
-        <InfiniteScroll
-          style={{overflow:"hidden"}}
-          dataLength={articles.length}
-          next={fetchMoreData}
-          hasMore={articles.length <= totalResults}
-          loader={loading && <Loading />}
-        >
-          <div className="container">
-            <div className="row">
-              {articles.map((element, index) => {
-                return (
-                  <div className="col-md-4 my-3" key={index}>
-                    <NewsItem
-                      title={element.title ? element.title : ""}
-                      date={element.publishedAt}
-                      author={element.author}
-                      source={element.source.name}
-                      Badge={props.Badge}
-                      description={
-                        element.description ? element.description : ""
-                      }
-                      imageUrl={
-                        element.urlToImage
-                          ? element.urlToImage
-                          : "https://www.hindustantimes.com/ht-img/img/2024/01/07/1600x900/The-IMD-has-issued-rain-and-thunderstorm-alerts-fo_1704628367847.jpg"
-                      }
-                      url={element.url}
-                    />
-                  </div>
-                );
-              })}
-            </div>
+      <InfiniteScroll
+        style={{ overflow: "hidden" }}
+        dataLength={articles.length}
+        next={fetchMoreData}
+        hasMore={articles.length <= totalResults}
+        loader={loading && <Loading />}
+      >
+        <div className="container">
+          <div className="row">
+            {articles.map((element, index) => {
+              console.log('Element:', element);
+
+              // Extract title as a string or default to an empty string
+              const title = element.title && typeof element.title === 'string' ? element.title : '';
+            
+              // Log the title to check its value
+              console.log('Title:', title);
+              return (
+                <div className="col-md-4 my-3" key={index}>
+                  <NewsItem
+                    title={title}
+                    date={element.publishedAt}
+                    author={element.author}
+                    sourceName={element.source ? element.source.name : ""}
+                    sourceId={element.source ? element.source.id : ""}
+                    Badge={props.Badge}
+                    description={element.description ? element.description : ""}
+                    imageUrl={
+                      element.urlToImage
+                        ? element.urlToImage
+                        : "https://www.hindustantimes.com/ht-img/img/2024/01/07/1600x900/The-IMD-has-issued-rain-and-thunderstorm-alerts-fo_1704628367847.jpg"
+                    }
+                    url={element.url}
+                    content={element.content ? element.content : ""}
+                    published_at={
+                      element.published_at ? element.published_at : ""
+                    }
+                  />
+                </div>
+              );
+            })}
           </div>
-        </InfiniteScroll>
+        </div>
+      </InfiniteScroll>
 
-        {/* <div className="container d-flex justify-content-between mt-5">
+      {/* <div className="container d-flex justify-content-between mt-5">
           <button disabled={page<=1} type="button" className="btn btn-dark" onClick={handlePrevious}> &larr; Previous</button>
           <button type="button" disabled={(page + 1) > Math.ceil(totalResults/props.pagesize)} className="btn btn-dark" onClick={handleNext}>Next &rarr;</button>
         </div>     */}
-      </>
-    );
-}
+    </>
+  );
+};
 
 News.defaultProps = {
   country: "in",
@@ -195,4 +254,4 @@ News.propTypes = {
   Badge: PropTypes.string,
 };
 
-export default News
+export default News;

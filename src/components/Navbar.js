@@ -72,8 +72,14 @@ const Navbar = () => {
                   Technology
                 </Link>
               </li>
+              {localStorage.getItem("token") ? (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/FavNews">
+                    Favourite
+                  </Link>
+                </li>
+              ) : null}
             </ul>
-
             {!localStorage.getItem("token") ? (
               <>
                 <Link to="/login">
@@ -93,7 +99,10 @@ const Navbar = () => {
                 </Link>
               </>
             ) : (
-              <button className="btn btn-outline-secondary mx-1" onClick={handlelogout}>
+              <button
+                className="btn btn-outline-secondary mx-1"
+                onClick={handlelogout}
+              >
                 Logout
               </button>
             )}

@@ -14,6 +14,7 @@ app.use('/api/auth', require('./routes/user'))
 app.use('/api/newsarticle', require('./routes/NewsArticle'))
 app.use('/api/category', require('./routes/Category'))
 app.use('/api/articlecategory', require('./routes/ArticleCategory'))
+app.use('/api/favnews', require('./routes/FavouriteNews'))
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
