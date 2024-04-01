@@ -4,11 +4,17 @@ import FavNewsContext from "../FavNewsContext/FavNewsContext";
 
 function FavNews(props) {
   const context = useContext(FavNewsContext);
-  const { favNews, getFavNews } = context;
+  const { favNews, getFavNews, deleteFavNews } = context;
 
   useEffect(() => {
     getFavNews();
   }, [getFavNews]);
+
+  const handleDeleteNews = async (id) => {
+    await deleteFavNews(id);
+    // After deletion, refetch favorite news
+    getFavNews();
+  };
 
   return (
     <div>
@@ -37,6 +43,8 @@ function FavNews(props) {
                 }
                 url={element.url}
                 favClick={true}
+                isStarClicked={true}
+                onDelete={() => handleDeleteNews(element.id)}
               />
             </div>
           ))}

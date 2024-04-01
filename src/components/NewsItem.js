@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FavNewsContext from "../FavNewsContext/FavNewsContext";
 
@@ -16,40 +16,52 @@ const NewsItem = ({
   favClick
 }) => {
   const context = useContext(FavNewsContext);
-  const { addFavNews } = context;
-
-  const [isStarClicked, setIsStarClicked] = useState(false);
+  const { favNews, getFavNews, addFavNews, deleteFavNews } = context;
   const navigate = useNavigate();
+  
+  const [isStarClicked, setIsStarClicked] = useState(false);
+
+  useEffect(() => {
+    getFavNews();
+  }, []);
+
+  useEffect(() => {
+    const isStarClickedInitial = favNews.some(news => news.title === title);
+    setIsStarClicked(isStarClickedInitial);
+  }, [favNews, title]);
 
   const handleStarClick = async () => {
+    window.location.reload();
     const checkLogin = localStorage.getItem("token");
-    console.log("title",title);
     if (checkLogin) {
-      setIsStarClicked(!isStarClicked);
-      // Use the title prop directly
-      const titleString =
-        title && typeof title === "string" ? title : "";
-  
-      // Add the news item to favorites
-      const favN = await addFavNews({
-        title: title,
-        description,
-        content,
-        author,
-        published_at,
-        source_id: sourceId,
-        source_name: sourceName,
-        url,
-        image_url: imageUrl,
-      });
-  
-      console.log(favN);
+      if (isStarClicked) {
+        // If already favorited, find the news item in the favorite news state
+        const favNewsItem = favNews.find(news => news.title === title);
+        if (favNewsItem) {
+          // If found, pass its ID to deleteFavNews function
+          await deleteFavNews(favNewsItem.id);
+          setIsStarClicked(false);
+        }
+      } else {
+        // If not favorited, add it to favorites
+        const favN = await addFavNews({
+          title: title,
+          description,
+          content,
+          author,
+          published_at,
+          source_id: sourceId,
+          source_name: sourceName,
+          url,
+          image_url: imageUrl,
+        });
+        setIsStarClicked(true);
+      }
     } else {
       navigate("/login");
     }
   };
   
-
   return (
     <div>
       <div className="card bg-dark">

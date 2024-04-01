@@ -52,8 +52,24 @@ const FavNewsState = (props) => {
   };
 
   
+  // Delete a FavNews
+  const deleteFavNews = async (id) => {
+    // API Call
+    const response = await fetch(`${host}/api/favnews/deletefavnews/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        "auth-token": localStorage.getItem("token")
+      }
+    });
+    const json = response.json(); 
+    const newFavNews = favNews.filter((favnew) => { return favnew._id !== id })
+    setFavNews(newFavNews)
+  }
+
+
   return (
-    <FavNewsContext.Provider value={{favNews,getFavNews,addFavNews}}>
+    <FavNewsContext.Provider value={{favNews,getFavNews,addFavNews,deleteFavNews}}>
       {props.children}
     </FavNewsContext.Provider>
   );
