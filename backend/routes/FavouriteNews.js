@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/FetchUser");
+const fetchuser = require("../Middleware/FetchUser");
 const FavoriteNews = require("../models/FavouriteArticle");
 const { body, validationResult } = require("express-validator");
 

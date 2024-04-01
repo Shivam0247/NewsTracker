@@ -24,12 +24,14 @@ const NewsItem = ({
   useEffect(() => {
     getFavNews();
   }, []);
-
+  
   useEffect(() => {
-    const isStarClickedInitial = favNews.some(news => news.title === title);
-    setIsStarClicked(isStarClickedInitial);
+    if (Array.isArray(favNews)) {
+      const isStarClickedInitial = favNews.some(news => news.title === title);
+      setIsStarClicked(isStarClickedInitial);
+    }
   }, [favNews, title]);
-
+  
   const handleStarClick = async () => {
     window.location.reload();
     const checkLogin = localStorage.getItem("token");
