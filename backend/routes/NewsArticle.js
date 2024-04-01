@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const NewsArticle = require('../models/NewsArticle');
+const fetchuser = require('../Middleware/FetchUser');
 
 // ROUTE 1: Get All the Article  using: GET "/api/newsarticle/getarticle"
 router.get('/getarticle', async (req, res) => {

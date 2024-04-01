@@ -35,7 +35,7 @@ const FavNewsState = (props) => {
             description: title.description,
             content: title.content,
             author: title.author,
-            published_at: published_at,
+            published_at: title.published_at,
             source_id: title.source_id,
             source_name: title.source_name,
             url:title.url,

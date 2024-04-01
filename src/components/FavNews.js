@@ -36,6 +36,7 @@ function FavNews(props) {
                     : "https://www.hindustantimes.com/ht-img/img/2024/01/07/1600x900/The-IMD-has-issued-rain-and-thunderstorm-alerts-fo_1704628367847.jpg"
                 }
                 url={element.url}
+                favClick={true}
               />
             </div>
           ))}

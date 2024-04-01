@@ -13,6 +13,7 @@ const NewsItem = ({
   imageUrl,
   url,
   Badge,
+  favClick
 }) => {
   const context = useContext(FavNewsContext);
   const { addFavNews } = context;
@@ -84,12 +85,12 @@ const NewsItem = ({
             </a>
 
             <i
-              className={isStarClicked ? "fi fi-sr-star" : "fi fi-rr-star"}
+              className={isStarClicked || favClick ? "fi fi-sr-star" : "fi fi-rr-star"}
               style={{
                 display: "flex",
                 margin: "7px 7px",
                 cursor: "pointer",
-                color: isStarClicked ? "gold" : "inherit",
+                color: isStarClicked || favClick ? "gold" : "inherit",
               }}
               onClick={handleStarClick}
             ></i>

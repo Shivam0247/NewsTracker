@@ -42,4 +42,28 @@ router.post("/addfavnews",fetchuser, async (req, res) => {
   }
 );
 
+// ROUTE 3: Delete an existing FavNews using: DELETE "/api/favnews/deletefavnews". Login required
+
+router.delete('/deletefavnews/:id', fetchuser, async (req, res) => {
+  try {
+    // Find the news article to be deleted
+    const news = await FavoriteNews.findOne({
+      where: {
+        id: req.params.id,
+        user_id: req.user.user_id
+      }
+    });
+
+    if (!news) {
+      return res.status(404).send("News article not found");
+    }
+
+    // Perform deletion
+    await news.destroy();
+    res.json({ "Success": "News article has been deleted" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 module.exports = router;
